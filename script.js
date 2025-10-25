@@ -26,7 +26,7 @@ function generatePrompt() {
   showMagicPopup();
 
   // 🔮 Send to local Python API
-  fetch("http://127.0.0.1:8081/generate", {
+  fetch("http://127.0.0.1:8081", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
