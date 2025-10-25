@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Genie — AI App Builder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🧞‍♂️ Genie</h1>
+    <p class="tagline">Whisper your wish. I’ll conjure the code.</p>
+
+    <label for="customPrompt">🔮 Cast your wish into words</label>
+    <div class="prompt-wrapper">
+      <textarea id="customPrompt" placeholder="Describe your magical creation, and I shall bring it to life..."></textarea>
+      <button id="magicBtn" class="symbol-button">🪄</button>
+    </div>
+
+    <button id="generateBtn" class="primary-button">🧞 Grant My Wish</button>
+    <button id="togglePopup" class="secondary-button">🪄 Need help? Summon Genie’s guidance</button>
+
+    <div id="magicPopup" class="magic-popup hidden">✨ Your wish is granted!</div>
+
+    <div id="popupForm" class="popup hidden">
+      <h2>✨ Let me read your mind…</h2>
+
+      <label for="name">What shall it be called?</label>
+      <input type="text" id="name" placeholder="e.g., Snapfolio, EduTrack">
+
+      <label for="logo">What symbol shall it bear?</label>
+      <input type="text" id="logo" placeholder="e.g., lamp, phoenix, book">
+
+      <label for="purpose">What is its destiny?</label>
+      <input type="text" id="purpose" placeholder="e.g., portfolio, blog">
+
+      <label for="style">What style shall it wear?</label>
+      <input type="text" id="style" placeholder="e.g., sleek, mystical, minimal">
+
+      <label for="features">What powers shall it possess?</label>
+      <input type="text" id="features" placeholder="e.g., contact form, gallery">
+    </div>
+
+    <div id="previewBox"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
