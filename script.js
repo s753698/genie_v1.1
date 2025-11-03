@@ -1,44 +1,31 @@
-function generatePrompt() {
-  const nameInput = document.getElementById("name");
-  const logoInput = document.getElementById("logo");
-  const purposeInput = document.getElementById("purpose");
-  const styleInput = document.getElementById("style");
-  const featuresInput = document.getElementById("features");
-  const customPromptInput = document.getElementById("customPrompt");
+document.getElementById("grantWishBtn").addEventListener("click", async () => {
+  const q1 = document.getElementById("question1").value.trim();
+  const q2 = document.getElementById("question2").value.trim();
+  const q3 = document.getElementById("question3").value.trim();
 
-  const name = nameInput ? nameInput.value.trim() : "";
-  const logo = logoInput ? logoInput.value.trim() : "";
-  const purpose = purposeInput ? purposeInput.value.trim() : "";
-  const style = styleInput ? styleInput.value.trim() : "";
-  const features = featuresInput ? featuresInput.value.trim() : "";
-  const customPrompt = customPromptInput.value.trim();
+  const refinedPrompt = `Build an app or solution based on:
+1. What I want: ${q1}
+2. What I already know: ${q2}
+3. What I need help with: ${q3}
 
-  let refinedPrompt = "";
+Please respond with clear, modular code and a brief explanation.`;
 
-  if (customPrompt) {
-    refinedPrompt = customPrompt;
-  } else {
-    refinedPrompt = `Conjure a ${style} ${purpose} website named "${name}" with powers like ${features}. Symbol: ${logo}.`;
+  // Show loading state
+  const previewBox = document.getElementById("previewBox");
+  previewBox.innerText = "🧞 Summoning your solution...";
+
+  try {
+    const response = await fetch("http://localhost:5000/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: refinedPrompt })
+    });
+
+    const data = await response.json();
+    previewBox.innerText = data.text || "⚠️ No response received.";
+  } catch (error) {
+    previewBox.innerText = "❌ Error contacting Genie’s backend.";
+    console.error("Genie backend error:", error);
   }
+});
 
-  // Show the refined prompt
-  document.getElementById("previewBox").innerText = "🧠 Thinking...\n\n" + refinedPrompt;
-  showMagicPopup();
-
-  // 🔮 Send to local Python API
-  fetch("http://127.0.0.1:8081", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      prompt: refinedPrompt,
-      n_predict: 512
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("previewBox").innerText = data.response;
-  })
-  .catch(err => {
-    document.getElementById("previewBox").innerText = "❌ Error: " + err;
-  });
-}
